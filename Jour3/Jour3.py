@@ -21,7 +21,7 @@ def list_co2(k,liste_test,liste2):
             else:
                 nb1[j] += 1
 
-    if nb0[k] > nb1[k]:
+    if nb0[k] <= nb1[k]:
         garde(k,'0',liste_test,liste2)
     else:
         garde(k,'1',liste_test,liste2)
@@ -40,7 +40,8 @@ def list_oxygen(k,liste_test,liste2):
     else:
         garde(k,'1',liste_test,liste2) 
 
-file = open("C:\\Users\\Camille\\Documents\\ZUnivers\\AOC\\Jour3\\input.txt","r")
+
+file = open("C:\\Users\\AN28170\\Documents\\ZUnivers\\AOC-2021\\Jour3\\input.txt","r")
 lines = file.readlines()
 int_gamma = 0
 int_epsilon = 0
@@ -83,28 +84,31 @@ for i in range(len(lines)):
     else:
         test(i,'1')
 
-for k in range(len(nb0)):
+for k in range(1,len(nb0)):
     nb0 = [0,0,0,0,0,0,0,0,0,0,0,0]
     nb1 = [0,0,0,0,0,0,0,0,0,0,0,0]
     liste_oxygen2 = []
-    list2(k,liste_oxygen,liste_oxygen2)
+    list_oxygen(k,liste_oxygen,liste_oxygen2)
     liste_oxygen = liste_oxygen2
 
-
+for k in range(1,len(nb1)):
     nb0 = [0,0,0,0,0,0,0,0,0,0,0,0]
     nb1 = [0,0,0,0,0,0,0,0,0,0,0,0]
     liste_co22 = []
-    list2(k,liste_co2,liste_co22)
+    list_co2(k,liste_co2,liste_co22)
     liste_co2 = liste_co22
+    if len(liste_co2) == 1:
+        break
 
 print(f'oxygen : {liste_oxygen}    co2 : {liste_co2}')
 
 liste = list(liste_oxygen[0])
+liste2 = list(liste_co2[0])
 oxygen = 0
 co2 = 0
 for i in range(len(liste)-1):
     oxygen += calcul_bin(int(list(liste_oxygen[0])[i]),len(liste)-2-i)
-    co2 += calcul_bin(int(list(liste_co2[0])[i]),len(liste)-2-i)
+    co2 += calcul_bin(int(list(liste_co2[0])[i]),len(liste2)-2-i)
 
 print(f'oxygen : {oxygen}    co2 : {co2}')
 print(f'total : {oxygen*co2}')
